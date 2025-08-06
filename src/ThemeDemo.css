@@ -1,0 +1,83 @@
+.theme-demo {
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  margin: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.theme-demo h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.theme-demo p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.theme-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.theme-button {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #667eea;
+  background: white;
+  color: #667eea;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.theme-button:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.theme-button.active {
+  background: #667eea;
+  color: white;
+}
+
+.theme-info {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.theme-info h3 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.theme-info ol {
+  color: #666;
+  line-height: 1.6;
+}
+
+.theme-info code {
+  background: #f1f3f4;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #d73a49;
+}
+
+@media (max-width: 768px) {
+  .theme-buttons {
+    flex-direction: column;
+  }
+  
+  .theme-button {
+    width: 100%;
+  }
+} 
