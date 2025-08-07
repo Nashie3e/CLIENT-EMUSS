@@ -49,6 +49,16 @@ const MedicalConsultation = () => {
     navigate('/appointments');
   };
 
+  const handleMedicalHistoryClick = () => {
+    setActiveTab('history');
+    navigate('/medical-history');
+  };
+
+  const handleProfileClick = () => {
+    setActiveTab('profile');
+    navigate('/profile');
+  };
+
   const handleBookAppointment = () => {
     if (selectedDate && selectedTime && selectedService && selectedDoctor) {
       alert('Appointment booked successfully!');
@@ -85,18 +95,18 @@ const MedicalConsultation = () => {
           >
             📅 Appointments
           </button>
-          <button
-            className={`nav-item ${activeTab === 'history' ? 'active' : ''}`}
-            onClick={() => setActiveTab('history')}
-          >
-            📋 Medical History
-          </button>
-          <button
-            className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`}
-            onClick={() => setActiveTab('profile')}
-          >
-            👤 Profile
-          </button>
+                      <button
+              className={`nav-item ${activeTab === 'history' ? 'active' : ''}`}
+              onClick={handleMedicalHistoryClick}
+            >
+              📋 Medical History
+            </button>
+            <button
+              className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`}
+              onClick={handleProfileClick}
+            >
+              👤 Profile
+            </button>
         </nav>
         
         <div className="sidebar-footer">

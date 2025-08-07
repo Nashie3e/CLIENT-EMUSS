@@ -8,6 +8,8 @@ import UserDashboard from './pages/UserDashboard';
 import DentalConsultation from './pages/DentalConsultation';
 import MedicalConsultation from './pages/MedicalConsultation';
 import Appointments from './pages/Appointments';
+import MedicalHistory from './pages/MedicalHistory';
+import Profile from './pages/Profile';
 import ProtectedRoute from './auth/ProtectedRoute';
 
 function AppRoutes() {
@@ -60,22 +62,38 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/medical-history"
+        element={
+          <ProtectedRoute>
+            <MedicalHistory />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
 
       {/* Redirect unknown routes */}
       <Route
-  path="*"
-  element={
-    isAuthenticated ? (
-      user?.role === "admin" ? (
-        <Navigate to="/admin" />
-      ) : (
-        <Navigate to="/user-dashboard" />
-      )
-    ) : (
-      <Navigate to="/login" />
-    )
-  }
-/>
+        path="*"
+        element={
+          isAuthenticated ? (
+            user?.role === "admin" ? (
+              <Navigate to="/admin" />
+            ) : (
+              <Navigate to="/user-dashboard" />
+            )
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
 
     </Routes>
   );
