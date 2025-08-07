@@ -35,7 +35,7 @@ function AppRoutes() {
       />
 
       {/* Redirect unknown routes */}
-      <Route path="*" element={<Navigate to={isAuthenticated ? "/user-dashboard" : "/login"} />} />
+      <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
 }

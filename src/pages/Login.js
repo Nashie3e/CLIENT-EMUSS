@@ -12,7 +12,8 @@ function Login() {
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, user } = useAuth();
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,13 +29,16 @@ function Login() {
     e.preventDefault();
     setIsLoading(true);
     setError('');
-
+  
     try {
       const result = await login(formData.email, formData.password);
       if (result.success) {
-        // Login successful - the AuthContext will handle the state
         console.log('Login successful');
-        navigate('/user-dashboard');
+        if (result.role === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate('/user-dashboard');
+        }
       } else {
         setError(result.message || 'Login failed');
       }
@@ -44,6 +48,7 @@ function Login() {
       setIsLoading(false);
     }
   };
+  
 
   const backgroundStyle = {
     backgroundImage: 'url(/background.jpg)',
@@ -53,11 +58,11 @@ function Login() {
   };
 
   // If already authenticated, show a message
-  if (isAuthenticated) {
+  /*if (isAuthenticated) {
     return (
       <div className="login-container" style={backgroundStyle}>
         <div className="login-left">
-          {/* Empty space on the left */}
+          {}
         </div>
         <div className="login-right">
           <div className="login-form-container">
@@ -74,7 +79,7 @@ function Login() {
         </div>
       </div>
     );
-  }
+  }*/
 
   return (
     <div className="login-container" style={backgroundStyle}>
