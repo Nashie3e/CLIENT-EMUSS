@@ -5,10 +5,13 @@ import Login from './pages/Login';
 import ThemeDemo from './ThemeDemo';
 import Admin from './pages/Admin';
 import UserDashboard from './pages/UserDashboard';
+import DentalConsultation from './pages/DentalConsultation';
+import MedicalConsultation from './pages/MedicalConsultation';
+import Appointments from './pages/Appointments';
 import ProtectedRoute from './auth/ProtectedRoute';
 
 function AppRoutes() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <Routes>
@@ -33,9 +36,47 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/dental-consultation"
+        element={
+          <ProtectedRoute>
+            <DentalConsultation />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/medical-consultation"
+        element={
+          <ProtectedRoute>
+            <MedicalConsultation />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/appointments"
+        element={
+          <ProtectedRoute>
+            <Appointments />
+          </ProtectedRoute>
+        }
+      />
 
       {/* Redirect unknown routes */}
-      <Route path="*" element={<Navigate to="/login" />} />
+      <Route
+  path="*"
+  element={
+    isAuthenticated ? (
+      user?.role === "admin" ? (
+        <Navigate to="/admin" />
+      ) : (
+        <Navigate to="/user-dashboard" />
+      )
+    ) : (
+      <Navigate to="/login" />
+    )
+  }
+/>
+
     </Routes>
   );
 }

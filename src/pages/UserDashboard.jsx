@@ -1,36 +1,156 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import '../styles/UserDashboard.css';
 
 const UserDashboard = () => {
-  return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-800">Welcome to Your Dashboard</h1>
-        <p className="text-gray-600 mt-2">Manage your consultations below.</p>
-      </div>
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  const [activeTab, setActiveTab] = useState('dashboard');
 
-      {/* Boxes Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Dental Consultation Box */}
-        <div className="bg-white rounded-xl shadow p-6 hover:shadow-md transition">
-          <h2 className="text-2xl font-semibold text-blue-600 mb-3">Dental Consultation</h2>
-          <p className="text-gray-700 mb-4">
-            Book appointments, view dental history, and receive oral health advice.
-          </p>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            Go to Dental
+  const handleDentalClick = () => {
+    navigate('/dental-consultation');
+  };
+
+  const handleMedicalClick = () => {
+    navigate('/medical-consultation');
+  };
+
+  const handleAppointmentsClick = () => {
+    setActiveTab('appointments');
+    navigate('/appointments');
+  };
+
+  const handleLogout = () => {
+    logout();
+    window.location.reload();
+  };
+
+  return (
+    <div className="user-container">
+      {/* Sidebar */}
+      <div className="user-sidebar">
+        <div className="sidebar-header">
+          <h1>EMUSS</h1>
+          <p>User Portal</p>
+        </div>
+        
+        <nav className="sidebar-nav">
+          <button
+            className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
+            onClick={() => setActiveTab('dashboard')}
+          >
+            📊 Dashboard
+          </button>
+          <button
+            className={`nav-item ${activeTab === 'appointments' ? 'active' : ''}`}
+            onClick={handleAppointmentsClick}
+          >
+            📅 Appointments
+          </button>
+          <button
+            className={`nav-item ${activeTab === 'history' ? 'active' : ''}`}
+            onClick={() => setActiveTab('history')}
+          >
+            📋 Medical History
+          </button>
+          <button
+            className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`}
+            onClick={() => setActiveTab('profile')}
+          >
+            👤 Profile
+          </button>
+        </nav>
+        
+        <div className="sidebar-footer">
+          <button className="logout-btn" onClick={handleLogout}>
+            🚪 Logout
           </button>
         </div>
+      </div>
 
-        {/* Medical Consultation Box */}
-        <div className="bg-white rounded-xl shadow p-6 hover:shadow-md transition">
-          <h2 className="text-2xl font-semibold text-green-600 mb-3">Medical Consultation</h2>
-          <p className="text-gray-700 mb-4">
-            Schedule check-ups, review past visits, and manage prescriptions.
-          </p>
-          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-            Go to Medical
-          </button>
+      {/* Main Content */}
+      <div className="user-main">
+        <div className="main-header">
+          <h2>Dashboard</h2>
+          <div className="user-info">
+            <span>Welcome, {user?.name || 'User'}</span>
+            <div className="user-avatar">👤</div>
+          </div>
+        </div>
+        
+        <div className="main-content">
+          {/* Consultation Cards */}
+          <div className="dashboard-grid">
+            {/* Dental Consultation Card */}
+            <div 
+              className="consultation-card dental"
+              onClick={handleDentalClick}
+            >
+              <div className="card-header">
+                <div className="card-icon dental">
+                  🦷
+                </div>
+                <h3 className="card-title dental">Dental Consultation</h3>
+              </div>
+              <p className="card-description">
+                Book appointments with our dental specialists, view your dental history, 
+                and receive personalized oral health advice and treatment plans.
+              </p>
+              <div className="card-action dental">
+                <span>Book Appointment</span>
+                <span>→</span>
+              </div>
+            </div>
+
+            {/* Medical Consultation Card */}
+            <div 
+              className="consultation-card medical"
+              onClick={handleMedicalClick}
+            >
+              <div className="card-header">
+                <div className="card-icon medical">
+                  🏥
+                </div>
+                <h3 className="card-title medical">Medical Consultation</h3>
+              </div>
+              <p className="card-description">
+                Schedule check-ups with our medical professionals, review past visits, 
+                manage prescriptions, and get comprehensive health assessments.
+              </p>
+              <div className="card-action medical">
+                <span>Book Appointment</span>
+                <span>→</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Stats */}
+          <div className="stats-grid">
+            <div className="stat-card">
+              <div className="stat-icon upcoming">
+                📅
+              </div>
+              <h3>Upcoming</h3>
+              <p className="stat-number">3</p>
+            </div>
+            
+            <div className="stat-card">
+              <div className="stat-icon completed">
+                ✅
+              </div>
+              <h3>Completed</h3>
+              <p className="stat-number">12</p>
+            </div>
+            
+            <div className="stat-card">
+              <div className="stat-icon monthly">
+                📊
+              </div>
+              <h3>This Month</h3>
+              <p className="stat-number">5</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
