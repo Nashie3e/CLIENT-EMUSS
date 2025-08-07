@@ -27,8 +27,22 @@ export const AuthProvider = ({ children }) => {
       setUser(userData);
       setIsAuthenticated(true);
       localStorage.setItem('auth', JSON.stringify({ isAuthenticated: true, user: userData }));
-      return { success: true };
-    } else {
+      return { success: true , role: 'admin'};
+    }
+    else if (email === 'titengmalaki@gmail.com' && password === 'user123') {
+      const userData = {
+        id: 2,
+        email: email,
+        name: 'Titeng Malaki',
+        role: 'user'
+
+      };
+      setUser(userData);
+      setIsAuthenticated(true);
+      localStorage.setItem('auth', JSON.stringify({ isAuthenticated: true, user: userData }));
+      return { success: true , role: 'user'};
+    }
+    else {
       return { success: false, message: 'Invalid credentials' };
     }
   };

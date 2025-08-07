@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Login.css';
+import { useNavigate } from 'react-router-dom';
+
 
 function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -31,6 +34,7 @@ function Login() {
       if (result.success) {
         // Login successful - the AuthContext will handle the state
         console.log('Login successful');
+        navigate('/user-dashboard');
       } else {
         setError(result.message || 'Login failed');
       }
